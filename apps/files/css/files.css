@@ -188,7 +188,7 @@ table td.filename form { font-size:.85em; margin-left:3em; margin-right:3em; }
 }
 /* Show checkbox when hovering, checked, or selected */
 #fileList tr:hover td.filename>input[type="checkbox"]:first-child,
-#fileList tr td.filename>input[type="checkbox"]:checked:first-child,
+#fileList tr td.filename>input[type="checkbox"][checked=checked]:first-child,
 #fileList tr.selected td.filename>input[type="checkbox"]:first-child {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	filter: alpha(opacity=100);
