@@ -100,10 +100,10 @@ if (strpos($dir, '..') === false) {
 	$fileCount = count($files['name']);
 	for ($i = 0; $i < $fileCount; $i++) {
             
-                // Get the files directory
-                if(isset($_POST['file_directory']) === true)
-                {
-                    $file_directory = '/'.$_POST['file_directory'];
+		// Get the files directory
+		if(isset($_POST['file_directory']) === true)
+		{
+			$file_directory = '/'.$_POST['file_directory'];
 		}
                 
 		// put the full directory into the target

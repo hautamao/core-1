@@ -26,10 +26,10 @@ $(document).ready(function() {
 				fu._trigger('fail', e, data);
 				return false; //don't upload anything
 			}
-
-                        // Put the file path into the form so we can grab it via POST
-                        $('#file_directory').val(data.files[0]['relativePath']);
-          
+			
+			// Put the file path into the form so we can grab it via POST
+			$('#file_directory').val(data.files[0]['relativePath']);
+			
 			// start the actual file upload
 			var jqXHR = data.submit();
 
