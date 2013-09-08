@@ -95,12 +95,23 @@ if ($maxUploadFileSize >= 0 and $totalSize > $maxUploadFileSize) {
 }
 
 $result = array();
+$file_directory = '';
 if (strpos($dir, '..') === false) {
 	$fileCount = count($files['name']);
 	for ($i = 0; $i < $fileCount; $i++) {
-		$target = OCP\Files::buildNotExistingFileName(stripslashes($dir), $files['name'][$i]);
+            
+                // Get the files directory
+                if(isset($_POST['file_directory']) === true)
+                {
+                    $file_directory = '/'.$_POST['file_directory'];
+                }
+                
+                // put the full directory into the target
+		$target = OCP\Files::buildNotExistingFileName(stripslashes($dir.$file_directory), $files['name'][$i]);
+                
 		// $path needs to be normalized - this failed within drag'n'drop upload to a sub-folder
 		$target = \OC\Files\Filesystem::normalizePath($target);
+                
 		if (is_uploaded_file($files['tmp_name'][$i]) and \OC\Files\Filesystem::fromTmpFile($files['tmp_name'][$i], $target)) {
 			$meta = \OC\Files\Filesystem::getFileInfo($target);
 			// updated max file size after upload

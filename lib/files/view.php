@@ -591,21 +591,47 @@ class View {
 		}
 	}
 
-	public function fromTmpFile($tmpFile, $path) {
-		if (Filesystem::isValidPath($path)) {
+	public function fromTmpFile($tmpFile, $file) {
+            
+                $file_path = substr($file, 0, strrpos($file,'/'));
+                // Get directory that the file is going into
+                $file_path = \OC_User::getHome(\OC_User::getUser()) . '/files'.$file_path;
+                
+                // Check to see if the directory already exists
+		if (file_exists($file_path) || empty($file_path) === true) {
 			if (!$tmpFile) {
 				debug_print_backtrace();
 			}
 			$source = fopen($tmpFile, 'r');
 			if ($source) {
-				$this->file_put_contents($path, $source);
+				$this->file_put_contents($file, $source);
 				unlink($tmpFile);
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			return false;
+                        // Looks like their DIR doesn't exist, let's create it recursively 
+                        if(mkdir($file_path,0777,true)) {
+                                if (!$tmpFile) {
+                                    debug_print_backtrace();
+                                }
+                                $source = fopen($tmpFile, 'r');
+                                if ($source) {
+                                        $this->file_put_contents($file, $source);
+                                        unlink($tmpFile);
+                                        return true;
+                                } else {
+                                        return false;
+                                }
+                                
+                                return true;
+                        }
+                        else
+                        {
+                            
+                            return false;
+                        }
 		}
 	}
 

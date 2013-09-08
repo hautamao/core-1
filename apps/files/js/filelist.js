@@ -581,9 +581,38 @@ $(document).ready(function(){
 				if ($('#publicUploadRequestToken').length) {
 					param.download_url = document.location.href + '&download&path=/' + $('#dir').val() + '/' + uniqueName;
 				}
-				// create new file context
-				data.context = FileList.addFile(uniqueName,size,date,true,false,param);
-
+                                
+                                // create new file context 
+                                if(data.files[0]['relativePath'].length > 0)
+                                {
+                                    dirName = data.files[0]['relativePath'].substring(0, data.files[0]['relativePath'].indexOf('/'));
+                                    if($('#fileList tr[data-file="'+dirName+'"]').length == 0)
+                                    {
+                                        data.context = FileList.addDir(dirName,size,date,false);                                        
+                                    }
+                                    
+                                    // set dir context
+                                    data.context = $('tr').filterAttr('data-type', 'dir').filterAttr('data-file', dirName);
+                                    
+                                    // update upload counter ui
+                                    var uploadtext = data.context.find('.uploadtext');
+                                    var currentUploads = parseInt(uploadtext.attr('currentUploads'));
+                                    currentUploads += 1;
+                                    uploadtext.attr('currentUploads', currentUploads);
+                                    
+                                    if(currentUploads === 1) {
+                                            var img = OC.imagePath('core', 'loading.gif');
+                                            data.context.find('td.filename').attr('style','background-image:url('+img+')');
+                                            uploadtext.text(t('files', '1 file uploading'));
+                                            uploadtext.show();
+                                    } else {
+                                            uploadtext.text(currentUploads + ' ' + t('files', 'files uploading'));
+                                    }
+                                }
+                                else
+                                {
+                                    data.context = FileList.addFile(uniqueName,size,date,true,false,param);
+                                }
 			}
 		}
 	});
