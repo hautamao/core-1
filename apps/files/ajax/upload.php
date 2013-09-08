@@ -104,9 +104,9 @@ if (strpos($dir, '..') === false) {
                 if(isset($_POST['file_directory']) === true)
                 {
                     $file_directory = '/'.$_POST['file_directory'];
-                }
+		}
                 
-                // put the full directory into the target
+		// put the full directory into the target
 		$target = OCP\Files::buildNotExistingFileName(stripslashes($dir.$file_directory), $files['name'][$i]);
                 
 		// $path needs to be normalized - this failed within drag'n'drop upload to a sub-folder
