@@ -595,10 +595,10 @@ class View {
 		$file_path = substr($file, 0, strrpos($file,'/'));
 		
 		// Get directory that the file is going into
-		$file_path = rtrim($this->getAbsolutePath(),'/').$file_path;
+		$file_path = \OC_User::getHome(\OC_User::getUser()) . '/files'.$file_path;
 		
 		// Check to see if the directory already exists
-		if (file_exists($file_path) || empty($file_path) === true) {
+		if (file_exists($file_path)) {
 			if (!$tmpFile) {
 				debug_print_backtrace();
 			}
