@@ -593,9 +593,10 @@ class View {
 
 	public function fromTmpFile($tmpFile, $file) {			
 		$file_path = substr($file, 0, strrpos($file,'/'));
+		
 		// Get directory that the file is going into
-		$file_path = \OC_User::getHome(\OC_User::getUser()) . '/files'.$file_path;
-                
+		$file_path = rtrim($this->getAbsolutePath(),'/').$file_path;
+		
 		// Check to see if the directory already exists
 		if (file_exists($file_path) || empty($file_path) === true) {
 			if (!$tmpFile) {
