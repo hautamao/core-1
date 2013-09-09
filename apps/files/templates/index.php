@@ -34,7 +34,7 @@
 						   value="(max <?php p($_['uploadMaxHumanFilesize']); ?>)">
 					<input type="hidden" name="dir" value="<?php p($_['dir']) ?>" id="dir">
 					<input type="file" id="file_upload_start" name='files[]'/>
-                                        <input type="hidden" name="file_directory" value="" id="file_directory">
+                                   <input type="hidden" name="file_directory" value="" id="file_directory">
 					<a href="#" class="svg"></a>
 				</form>
 			</div>
